@@ -1,0 +1,182 @@
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<style>
+    .hero {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        color: white;
+        border-radius: 1rem;
+        padding: 4rem 2rem;
+        text-align: center;
+        margin-bottom: 2.5rem;
+        position: relative;
+        overflow: hidden;
+    }
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(229,57,53,.08) 0%, transparent 60%);
+        pointer-events: none;
+    }
+    .hero-icon {
+        font-size: 5rem;
+        display: block;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0 0 20px rgba(229,57,53,.6));
+    }
+    .hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin-bottom: .5rem;
+    }
+    .hero h1 span { color: #ef5350; }
+    .hero p.lead { color: #adb5bd; font-size: 1.15rem; max-width: 520px; margin: 0 auto 2rem; }
+    .hero-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+    .stats-row { margin-bottom: 2.5rem; }
+    .stat-card {
+        background: white;
+        border-radius: .75rem;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,.07);
+        transition: transform .2s, box-shadow .2s;
+        height: 100%;
+    }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+    .stat-card .stat-icon { font-size: 2.4rem; display: block; margin-bottom: .5rem; }
+    .stat-card .stat-number { font-size: 2rem; font-weight: 800; color: #1a1a2e; line-height: 1; }
+    .stat-card .stat-label { color: #6c757d; font-size: .875rem; margin-top: .25rem; }
+
+    .modules-section h2 { font-weight: 700; color: #1a1a2e; margin-bottom: 1.5rem; }
+    .module-card {
+        background: white;
+        border-radius: .75rem;
+        padding: 1.5rem 1.25rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,.07);
+        transition: transform .2s, box-shadow .2s;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        height: 100%;
+        border-left: 4px solid transparent;
+    }
+    .module-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.12); color: inherit; text-decoration: none; }
+    .module-card .module-icon { font-size: 2rem; margin-bottom: .75rem; display: block; }
+    .module-card h5 { font-weight: 700; margin-bottom: .25rem; color: #1a1a2e; }
+    .module-card p { color: #6c757d; font-size: .85rem; margin: 0; }
+    .border-films   { border-left-color: #e53935; }
+    .border-actors  { border-left-color: #1e88e5; }
+    .border-cats    { border-left-color: #43a047; }
+    .border-clients { border-left-color: #fb8c00; }
+    .border-rent    { border-left-color: #8e24aa; }
+    .border-inv     { border-left-color: #00897b; }
+    .border-stores  { border-left-color: #e53935; }
+</style>
+
+<!-- HERO -->
+<div class="hero">
+    <i class="bi bi-camera-reels-fill hero-icon"></i>
+    <h1>Sakila <span>Videoclub</span></h1>
+    <p class="lead">Sistema de gestión integral para tu tienda de alquiler de películas. Administra tu catálogo, clientes e inventario desde un solo lugar.</p>
+    <div class="hero-btns">
+        <a asp-controller="Films" asp-action="Index" class="btn btn-danger btn-lg px-4">
+            <i class="bi bi-film me-2"></i>Ver catálogo
+        </a>
+        @if (!User.Identity!.IsAuthenticated)
+        {
+            <a asp-controller="Account" asp-action="Login" class="btn btn-outline-light btn-lg px-4">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar sesión
+            </a>
+        }
+        else
+        {
+            <a asp-controller="Customers" asp-action="Index" class="btn btn-outline-light btn-lg px-4">
+                <i class="bi bi-people me-2"></i>Ver clientes
+            </a>
+        }
+    </div>
+</div>
+
+<!-- MÓDULOS -->
+<div class="modules-section">
+    <h2><i class="bi bi-grid me-2"></i>Módulos del sistema</h2>
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-4 col-lg-3">
+            <a asp-controller="Films" asp-action="Index" class="module-card border-films">
+                <span class="module-icon">🎬</span>
+                <h5>Películas</h5>
+                <p>Catálogo completo con búsqueda y paginación</p>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <a asp-controller="Actors" asp-action="Index" class="module-card border-actors">
+                <span class="module-icon">🎭</span>
+                <h5>Actores</h5>
+                <p>Directorio de actores y sus filmografías</p>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <a asp-controller="Categories" asp-action="Index" class="module-card border-cats">
+                <span class="module-icon">🏷️</span>
+                <h5>Categorías</h5>
+                <p>Géneros cinematográficos disponibles</p>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <a asp-controller="Customers" asp-action="Index" class="module-card border-clients">
+                <span class="module-icon">👥</span>
+                <h5>Clientes</h5>
+                <p>Gestión de clientes activos del videoclub</p>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <a asp-controller="Rentals" asp-action="Index" class="module-card border-rent">
+                <span class="module-icon">📅</span>
+                <h5>Alquileres</h5>
+                <p>Registro de alquileres y devoluciones</p>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <a asp-controller="Inventories" asp-action="Index" class="module-card border-inv">
+                <span class="module-icon">📦</span>
+                <h5>Inventario</h5>
+                <p>Copias físicas disponibles por tienda</p>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <a asp-controller="Stores" asp-action="Index" class="module-card border-stores">
+                <span class="module-icon">🏪</span>
+                <h5>Tiendas</h5>
+                <p>Sucursales y datos de cada punto de venta</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER INFO -->
+<div class="card border-0 bg-white rounded-3 p-4 text-center" style="box-shadow:0 2px 10px rgba(0,0,0,.07)">
+    <div class="row align-items-center">
+        <div class="col-md-4 mb-3 mb-md-0">
+            <i class="bi bi-shield-lock text-success fs-2"></i>
+            <h6 class="fw-bold mt-2 mb-1">Acceso seguro</h6>
+            <small class="text-muted">Autenticación con ASP.NET Identity</small>
+        </div>
+        <div class="col-md-4 mb-3 mb-md-0">
+            <i class="bi bi-database text-primary fs-2"></i>
+            <h6 class="fw-bold mt-2 mb-1">Base de datos Sakila</h6>
+            <small class="text-muted">SQL Server + Entity Framework Core 8</small>
+        </div>
+        <div class="col-md-4">
+            <i class="bi bi-phone text-warning fs-2"></i>
+            <h6 class="fw-bold mt-2 mb-1">Diseño responsivo</h6>
+            <small class="text-muted">Bootstrap 5.3 — funciona en móvil y escritorio</small>
+        </div>
+    </div>
+</div>

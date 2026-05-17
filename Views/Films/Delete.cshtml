@@ -1,0 +1,22 @@
+﻿@model SakilaApp.Models.Film
+
+@{
+    ViewData["Title"] = "Eliminar Película";
+}
+
+<h1>¿Eliminar esta película?</h1>
+
+<div class="alert alert-danger" style="max-width: 600px;">
+    <p>Estás a punto de eliminar permanentemente la siguiente película:</p>
+    <hr />
+    <p><strong>ID:</strong> @Model.FilmId</p>
+    <p><strong>Título:</strong> @Model.Title</p>
+    <p><strong>Año:</strong> @Model.ReleaseYear</p>
+    <p><strong>Descripción:</strong> @Model.Description</p>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="FilmId" />
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Cancelar</a>
+</form>

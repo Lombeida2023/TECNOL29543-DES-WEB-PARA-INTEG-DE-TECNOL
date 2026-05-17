@@ -1,0 +1,30 @@
+@model SakilaApp.Models.Actor
+@{ ViewData["Title"] = "Eliminar actor"; }
+
+<div class="form-card">
+    <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h4><i class="bi bi-exclamation-triangle me-2"></i>Confirmar eliminación</h4>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning d-flex align-items-center gap-2">
+                <i class="bi bi-info-circle fs-5"></i>
+                <span>Esta acción desactivará al actor. No se eliminará de la base de datos.</span>
+            </div>
+            <p class="mb-1"><span class="detail-label">Actor:</span></p>
+            <h5 class="text-danger">@Model.FirstName @Model.LastName</h5>
+            <p class="text-muted small mb-0">ID: @Model.ActorId</p>
+        </div>
+        <div class="card-footer d-flex gap-2">
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="ActorId" />
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-trash me-1"></i>Sí, eliminar
+                </button>
+            </form>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i>Cancelar
+            </a>
+        </div>
+    </div>
+</div>

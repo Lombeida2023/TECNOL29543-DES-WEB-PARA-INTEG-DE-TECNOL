@@ -1,0 +1,39 @@
+@model SakilaApp.Models.Store
+@{ ViewData["Title"] = "Detalles de tienda"; }
+
+<div class="detail-card">
+    <div class="card">
+        <div class="card-header">
+            <h4><i class="bi bi-shop me-2"></i>Tienda #@Model.StoreId</h4>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-4 detail-label">ID Tienda</div>
+                <div class="col-8 detail-value">@Model.StoreId</div>
+            </div>
+            <hr class="my-2" />
+            <div class="row mb-3">
+                <div class="col-4 detail-label">ID Gerente</div>
+                <div class="col-8 detail-value">Staff #@Model.ManagerStaffId</div>
+            </div>
+            <hr class="my-2" />
+            <div class="row mb-3">
+                <div class="col-4 detail-label">ID Dirección</div>
+                <div class="col-8 detail-value">Dirección #@Model.AddressId</div>
+            </div>
+            <hr class="my-2" />
+            <div class="row">
+                <div class="col-4 detail-label">Última actualización</div>
+                <div class="col-8 detail-value text-muted">@Model.LastUpdate.ToString("dd/MM/yyyy HH:mm")</div>
+            </div>
+        </div>
+        <div class="card-footer d-flex gap-2">
+            <a asp-action="Edit" asp-route-id="@Model.StoreId" class="btn btn-warning btn-sm">
+                <i class="bi bi-pencil me-1"></i>Editar
+            </a>
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left me-1"></i>Volver
+            </a>
+        </div>
+    </div>
+</div>

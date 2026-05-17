@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SakilaApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navbar { box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+        .navbar-brand { font-weight: 700; letter-spacing: .5px; }
+        .nav-link { transition: color .15s; }
+        .main-content { flex: 1; padding: 1.5rem 0; }
+        footer {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #adb5bd;
+            padding: 1.2rem;
+            text-align: center;
+            font-size: .875rem;
+        }
+        .page-header {
+            background: white;
+            border-radius: .75rem;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 1px 4px rgba(0,0,0,.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .page-header h1 { margin: 0; font-size: 1.6rem; font-weight: 700; color: #1a1a2e; }
+        .card-table { border-radius: .75rem; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+        .table { margin: 0; }
+        .table thead th { background: #1a1a2e; color: white; border: none; font-weight: 600; font-size: .875rem; padding: .75rem 1rem; }
+        .table tbody tr { transition: background .15s; }
+        .table tbody tr:hover { background-color: #f8f9ff; }
+        .table td { vertical-align: middle; padding: .65rem 1rem; font-size: .9rem; }
+        .form-card { max-width: 600px; margin: 0 auto; }
+        .form-card .card { border: none; border-radius: .75rem; box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+        .form-card .card-header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; border-radius: .75rem .75rem 0 0 !important; padding: 1.25rem 1.5rem; }
+        .form-card .card-header h4 { margin: 0; font-weight: 600; }
+        .form-card .card-body { padding: 1.75rem; }
+        .form-card .card-footer { background: #f8f9fa; border-top: 1px solid #e9ecef; padding: 1rem 1.5rem; border-radius: 0 0 .75rem .75rem !important; }
+        .detail-card { max-width: 700px; margin: 0 auto; }
+        .detail-card .card { border: none; border-radius: .75rem; box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+        .detail-card .card-header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; border-radius: .75rem .75rem 0 0 !important; padding: 1.25rem 1.5rem; }
+        .detail-card .card-header h4 { margin: 0; font-weight: 600; }
+        .detail-card .card-body { padding: 1.75rem; }
+        .detail-label { font-weight: 600; color: #495057; font-size: .85rem; text-transform: uppercase; letter-spacing: .5px; }
+        .detail-value { color: #212529; }
+        .search-section { background: white; border-radius: .75rem; padding: 1rem 1.25rem; margin-bottom: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+        .stats-bar { font-size: .875rem; color: #6c757d; margin-bottom: .75rem; }
+        .pagination .page-link { color: #1a1a2e; }
+        .pagination .page-item.active .page-link { background-color: #1a1a2e; border-color: #1a1a2e; }
+        .badge-status-active { background-color: #198754; }
+        .badge-status-inactive { background-color: #dc3545; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <i class="bi bi-camera-reels-fill me-1"></i> Sakila
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="navbarNav">
+                <ul class="navbar-nav flex-grow-1 gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">
+                            <i class="bi bi-house-fill me-1"></i>Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Films" asp-action="Index">
+                            <i class="bi bi-film me-1"></i>Películas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Actors" asp-action="Index">
+                            <i class="bi bi-person-badge me-1"></i>Actores
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Categories" asp-action="Index">
+                            <i class="bi bi-tags me-1"></i>Categorías
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Customers" asp-action="Index">
+                            <i class="bi bi-people me-1"></i>Clientes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Rentals" asp-action="Index">
+                            <i class="bi bi-calendar-check me-1"></i>Alquileres
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Inventories" asp-action="Index">
+                            <i class="bi bi-box-seam me-1"></i>Inventario
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Stores" asp-action="Index">
+                            <i class="bi bi-shop me-1"></i>Tiendas
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <span class="nav-link text-warning fw-semibold">
+                                <i class="bi bi-person-circle me-1"></i>@User.Identity.Name
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <form asp-controller="Account" asp-action="Logout" method="post">
+                                <button type="submit" class="btn btn-link nav-link text-white">
+                                    <i class="bi bi-box-arrow-right me-1"></i>Salir
+                                </button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Login">
+                                <i class="bi bi-box-arrow-in-right me-1"></i>Iniciar sesión
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Register">
+                                <i class="bi bi-person-plus me-1"></i>Registrarse
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main-content">
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show d-flex align-items-center gap-2 mb-3">
+                <i class="bi bi-check-circle-fill fs-5"></i>
+                <span>@TempData["Success"]</span>
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-2 mb-3">
+                <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                <span>@TempData["Error"]</span>
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+            </div>
+        }
+        @RenderBody()
+    </div>
+
+    <footer>
+        <div class="container">
+            <i class="bi bi-camera-reels me-1"></i>&copy; 2026 SakilaApp &mdash; Gestión de videoclub
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
